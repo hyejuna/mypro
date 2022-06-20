@@ -33,7 +33,7 @@
 		</div>
 		<div id="right">
 			<div id="priority"></div>
-			<div id="Map"></div>
+			<div id="map"></div>
 		</div>
 	</div>
 </body>
