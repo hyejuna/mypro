@@ -25,6 +25,8 @@
 	type="text/css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/ol3/v3.14.2/ol-debug.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 </head>
 <body>
@@ -292,8 +294,10 @@
 </body>
 
 <script type="text/javascript">
+	/* 처음 치도 */
 	var view = new ol.View({
-		center : ol.proj.transform([ 126.939739, 37.5122476 ], 'EPSG:4326', 'EPSG:3857'),
+		center : ol.proj.transform([ 126.939739, 37.5122476 ], 'EPSG:4326',
+				'EPSG:3857'),
 		zoom : 16
 	});
 
@@ -310,5 +314,13 @@
 						}) ],
 				view : view
 			});
+
+	/* 주소 검색 */
+	new daum.Postcode({
+		oncomplete : function(data) {
+			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+			// 예제를 참고하여 다양한 활용법을 확인해 보세요.
+		}
+	}).open();
 </script>
 </html>
