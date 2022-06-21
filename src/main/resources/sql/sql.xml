@@ -6,10 +6,6 @@
 
 <mapper namespace="sql">
 
-<select id="sel" resultType="com.myproject.minipro.HomeDto">     <!-- resultType 본인 환경에 맞게 수정 필요 -->
 
-	SELECT * FROM account
-
-</select>
 
 </mapper> 
