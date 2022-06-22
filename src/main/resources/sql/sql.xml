@@ -5,7 +5,22 @@
 
 
 <mapper namespace="sql">
-
-
+	<!-- 대로로부터 거리 -->
+	<select id = "selectRoadDist" parameterType = "com.pro.dto.InfoDto" resultType="double">
+		<![CDATA[
+			select min(st_distance(r.geom,ST_Transform(ST_SetSRID(ST_Point(#{x}, #{y}),3857),5174))-(r.road_bt/2))
+			from dongjak_road r
+			where r.road_bt >=12
+		]]>
+	</select>
+	
+	<!-- cctv 좌표 -->
+	<select id = "selectCctvList" parameterType = "com.pro.dto.InfoDto" resultType="double">
+		<![CDATA[
+			select 
+			from dongjak_cctv c
+			where st_intersects(c.geom, st_buffer(ST_Transform(ST_SetSRID(ST_Point(#{x}, #{y}),3857),5174),#{dRoad}))
+		]]>
+	</select>
 
 </mapper> 
