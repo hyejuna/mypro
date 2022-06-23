@@ -13,11 +13,18 @@ public class MainService {
 	MainDao mainDao;
 	
 	public InfoDto getInfo(InfoDto info) {
-		System.out.println("getInfo.service");
-		System.out.println(info);
+		System.out.println("----getInfo.service----");
+		//System.out.println(info);
 		
 		info = mainDao.getRoad(info);
 		info = mainDao.getCctvList(info);
+		info = mainDao.getLightList(info);
+		info = mainDao.getEntList(info);
+		info = mainDao.getConvInfo(info);
+		info = mainDao.getPoliceInfo(info);
+		info = mainDao.getRankInfo(info);
+
+		//System.out.println(info);
 		return info;
 	}
 

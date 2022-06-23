@@ -24,15 +24,16 @@ public class MainController {
 	
 	@RequestMapping("/getInfo")
 	@ResponseBody
-	public double getInfo(@RequestParam("x") double x, @RequestParam("y") double y) {
-		System.out.println("getInfo.controller");
-		System.out.println(x+","+y);
+	public InfoDto getInfo(@RequestParam("x") double x, @RequestParam("y") double y) {
+		System.out.println("----getInfo.controller----");
+		//System.out.println(x+","+y);
 		
 		InfoDto info = new InfoDto();
 		info.setX(x);
 		info.setY(y);
-		System.out.println(info);
-		mainService.getInfo(info);
-		return x;
+		//System.out.println(info);
+		info = mainService.getInfo(info);
+		System.out.println("[response]"+info);
+		return info;
 	};
 };

@@ -8,19 +8,73 @@
 	<!-- 대로로부터 거리 -->
 	<select id = "selectRoadDist" parameterType = "com.pro.dto.InfoDto" resultType="double">
 		<![CDATA[
-			select min(st_distance(r.geom,ST_Transform(ST_SetSRID(ST_Point(#{x}, #{y}),3857),5174))-(r.road_bt/2))
+			select min(st_distance(r.geom,ST_SetSRID(ST_Point(#{x}, #{y}),3857))-(r.road_bt/2))
 			from dongjak_road r
 			where r.road_bt >=12
 		]]>
 	</select>
 	
-	<!-- cctv 좌표 -->
-	<select id = "selectCctvList" parameterType = "com.pro.dto.InfoDto" resultType="double">
+	<!-- 경찰서거리 & 좌표 -->
+	<select id = "selectPoliceInfo" parameterType = "com.pro.dto.InfoDto" resultType="com.pro.dto.InfoDto">
 		<![CDATA[
-			select 
+			select st_distance(p.geom,ST_SetSRID(ST_Point(#{x}, #{y}),3857)) dPolice,
+				   split_part(btrim(split_part(st_astext(p.geom),'(',2),')'),' ',1) policeX,
+				   split_part(btrim(split_part(st_astext(p.geom),'(',2),')'),' ',2) policeY
+			from dongjak_police p
+			order by st_distance(p.geom,ST_SetSRID(ST_Point(#{x}, #{y}),3857)) asc
+			limit 1
+		]]>
+	</select>
+	
+	<!-- cctv 좌표 -->
+	<select id = "selectCctvList" parameterType = "com.pro.dto.InfoDto" resultType="com.pro.dto.CctvDto">
+		<![CDATA[
+			select split_part(btrim(split_part(st_astext(c.geom),'(',2),')'),' ',1) cctvX,
+	   			   split_part(btrim(split_part(st_astext(c.geom),'(',2),')'),' ',2) cctvY
 			from dongjak_cctv c
-			where st_intersects(c.geom, st_buffer(ST_Transform(ST_SetSRID(ST_Point(#{x}, #{y}),3857),5174),#{dRoad}))
+			where st_intersects(c.geom, st_buffer(ST_SetSRID(ST_Point(#{x}, #{y}),3857),#{dRoad}))
+		]]>
+	</select>
+	
+		<!-- 보안등 좌표 -->
+	<select id = "selectLightList" parameterType = "com.pro.dto.InfoDto" resultType="com.pro.dto.LightDto">
+		<![CDATA[
+			select split_part(btrim(split_part(st_astext(l.geom),'(',2),')'),' ',1) lightX,
+	   			   split_part(btrim(split_part(st_astext(l.geom),'(',2),')'),' ',2) lightY
+			from dongjak_light l
+			where st_intersects(l.geom, st_buffer(ST_SetSRID(ST_Point(#{x}, #{y}),3857),#{dRoad}))
+		]]>
+	</select>
+	
+    <!-- 유흥주점 좌표 -->
+	<select id = "selectEntList" parameterType = "com.pro.dto.InfoDto" resultType="com.pro.dto.EntDto">
+		<![CDATA[
+			select split_part(btrim(split_part(st_astext(e.geom),'(',2),')'),' ',1) entX,
+	   			   split_part(btrim(split_part(st_astext(e.geom),'(',2),')'),' ',2) entY
+			from dongjak_ent e
+			where st_intersects(e.geom, st_buffer(ST_SetSRID(ST_Point(#{x}, #{y}),3857),#{dRoad}))
+		]]>
+	</select>
+	
+	<!-- 여성안심지킴이집  거리 & 좌표 -->
+	<select id = "selectConvInfo" parameterType = "com.pro.dto.InfoDto" resultType="com.pro.dto.InfoDto">
+		<![CDATA[
+			select st_distance(c.geom,ST_SetSRID(ST_Point(#{x}, #{y}),3857)) dConv,
+				   split_part(btrim(split_part(st_astext(c.geom),'(',2),')'),' ',1) convX,
+				   split_part(btrim(split_part(st_astext(c.geom),'(',2),')'),' ',2) convY
+			from dongjak_conv c
+			order by st_distance(c.geom,ST_SetSRID(ST_Point(#{x}, #{y}),3857)) asc
+			limit 1
 		]]>
 	</select>
 
+	<!-- 백분위 순위 -->
+	<select id = "selectRank" parameterType = "com.pro.dto.RankDto" resultType="double">
+		<![CDATA[
+			select s.value100
+			from avg_stdev a, stdev_tb s
+			where a.vid = #{vid}
+			and s.z = (round(cast((a.average-#{value})/a.stdev as numeric),2)*#{code});	
+		]]>
+	</select>
 </mapper> 
