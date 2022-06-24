@@ -41,104 +41,11 @@
 				<div id="marked-blds">
 				
 					<div id="marked-blds-title">My List</div>
-					<div id="marked-blds-rank">
-						<table id="rank-table">
-							<tr>
-								<td>1위</td>
-								<td>서울시 관악구 장군봉4길 15-10</td>
-								<td>25.12점</td>
-							</tr>
-							<tr>
-								<td>1위</td>
-								<td>서울시 관악구 장군봉4길 15-10</td>
-								<td>25.12점</td>
-							</tr>
-							<tr>
-								<td>1위</td>
-								<td>서울시 관악구 장군봉4길 15-10</td>
-								<td>25.12점</td>
-							</tr>
-						</table>
-					</div>
-					<!-- marked-blds-rank -->
 					
-					<div class="accordion" id="accordionExample">
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="headingOne">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" 
-								aria-expanded="flase" aria-controls="collapseOne">서울시 관악구 장군봉4길 15-10</button>
-							</h2>
-							<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne">
-								<div class="accordion-body">
-									<div class="mark-avg">평균 등수 23.5위</div>
-									<div class="mark-info">
-										<ul>
-											<li class="mark">중/대로(도로 폭 12m 이상)로 부터 거리 <span class="mark-road">100</span>m</li>
-											<li class="mark">파출소/지구대로 부터 거리 <span	class="mark-police">250</span>m</li>
-											<li class="mark">반경 <span class="mark-road">100</span>m	내 CCTV <span class="mark-cctv">5</span>개</li>
-											<li class="mark">반경 <span class="mark-road">100</span>m 내 보안등 <span class="mark-light">5</span>개</li>
-											<li class="mark">반경 <span class="mark-road">100</span>m	내 유흥주점 <span class="mark-ent">5</span>개	</li>
-											<li class="mark">반경 <span class="mark-road">100</span>m 내 여성안심지킴이집(편의점) <span class="mark-conv">5</span>개</li>
-										</ul>
-									</div>
-									<!-- mark-Info -->
-								</div>
-								<!-- accordion-body -->
-							</div>
-							<!-- collapseOne -->
-						</div>
-						<!-- accordion-item -->
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="headingTwo">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-								aria-expanded="false" aria-controls="collapseTwo">서울시 관악구 장군봉4길 15-10</button>
-							</h2>
-							<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
-								<div class="accordion-body">
-									<div class="mark-avg">평균 등수 23.5위</div>
-									<div class="mark-info">
-										<ul>
-											<li class="mark">중/대로(도로 폭 12m 이상)로 부터 거리 <span class="mark-road">100</span>m</li>
-											<li class="mark">파출소/지구대로 부터 거리 <span	class="mark-police">250</span>m</li>
-											<li class="mark">반경 <span class="mark-road">100</span>m	내 CCTV <span class="mark-cctv">5</span>개</li>
-											<li class="mark">반경 <span class="mark-road">100</span>m 내 보안등 <span class="mark-light">5</span>개</li>
-											<li class="mark">반경 <span class="mark-road">100</span>m	내 유흥주점 <span class="mark-ent">5</span>개	</li>
-											<li class="mark">반경 <span class="mark-road">100</span>m 내 여성안심지킴이집(편의점) <span class="mark-conv">5</span>개</li>
-										</ul>
-									</div>
-									<!-- mark-Info -->
-								</div>
-								<!-- accordion-body -->
-							</div>
-							<!-- collapseTwo -->
-						</div>
-						<!-- accordion-item -->
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="headingThree">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
-								aria-expanded="false" aria-controls="collapseThree"> 서울시 관악구 장군봉4길 15-10</button>
-							</h2>
-							<div id="collapseThree" class="accordion-collapse collapse"
-								aria-labelledby="headingThree">
-								<div class="accordion-body">
-									<div class="mark-avg">평균 등수 23.5위</div>
-									<div class="mark-info">
-										<ul>
-											<li class="mark">중/대로(도로 폭 12m 이상)로 부터 거리 <span class="mark-road">100</span>m</li>
-											<li class="mark">파출소/지구대로 부터 거리 <span	class="mark-police">250</span>m</li>
-											<li class="mark">반경 <span class="mark-road">100</span>m	내 CCTV <span class="mark-cctv">5</span>개</li>
-											<li class="mark">반경 <span class="mark-road">100</span>m 내 보안등 <span class="mark-light">5</span>개</li>
-											<li class="mark">반경 <span class="mark-road">100</span>m	내 유흥주점 <span class="mark-ent">5</span>개	</li>
-											<li class="mark">반경 <span class="mark-road">100</span>m 내 여성안심지킴이집(편의점) <span class="mark-conv">5</span>개</li>
-										</ul>
-									</div>
-									<!-- mark-Info -->
-								</div>
-								<!-- accordion-body -->
-							</div>
-							<!-- collapseThree -->
-						</div>
-						<!-- accordion-item -->
+					
+					<div class="accordion" id="myListAccordion">
+						
+						
 					</div>
 					<!-- accordion -->
 
@@ -232,6 +139,9 @@
 	var addr = '';
 	var x = 0;
 	var y = 0;
+	var searchedInfo = {};
+	var listNum = 0;
+	var myList = [];
 	
 	/* 초기 화면 지도 */
 	var view = new ol.View({
@@ -286,6 +196,7 @@
 							/*성공시 처리해야될 코드 작성*/
 							
 							console.log(info);
+							searchedInfo = info;//전역변수에 담기
 							drawlayer(info);
 							info.addr = addr;
 							showInfo(info);
@@ -308,9 +219,12 @@
 	})//주소검색 버튼 click event 끝
 	
 	/* myList추가 버튼 클릭 */
-	$('#add-btn').on("click",function(e) {
-		e.stopPropagation();
+	$('#searched-bld').on("click","#add-btn",function() {
 		console.log("리스트 추가 클릭");
+		console.log(searchedInfo);
+		addMyList(searchedInfo);
+		
+
 	})
 	
 	/* 벡터 레이어 그리기 */
@@ -477,13 +391,48 @@
 		str += ' 		<li class="sel">반경 <span class="sel-road">'+info.dRoad.toFixed(2)+'</span>m 내 CCTV <span id="sel-cctv">'+info.cntCctv+'</span>개 (<span id="sel-cctv-rank">'+info.cctvRank+'</span>위)</li>';
 		str += ' 		<li class="sel">반경 <span class="sel-road">'+info.dRoad.toFixed(2)+'</span>m 내 보안등 <span id="sel-light">'+info.cntLight+'</span>개 (<span id="sel-light-rank">'+info.lightRank+'</span>위)</li>';
 		str += ' 		<li class="sel">반경 <span class="sel-road">'+info.dRoad.toFixed(2)+'</span>m 내 유흥주점 <span id="sel-ent">'+info.cntEnt+'</span>개 (<span id="sel-ent-rank">'+info.entRank+'</span>위)</li>';
-		str += ' 		<li class="desc">동작구 내 백분위 순위. 0에 가까울 수록 좋음</li>';
+		str += ' 		<li class="desc">*동작구 내 백분위 순위. 0에 가까울 수록 좋음</li>';
 		str += ' 	</ul>';
 		str += ' </div>';
 		str += ' <button id="add-btn" class="btn btn-outline-primary">My List 추가</button>'
 		
 		$("#searched-bld").html(str);
 	
+	}
+	
+	function addMyList(info){
+		drawList(info, listNum);
+		myList[listNum] = info;
+		console.log(myList);
+		listNum = listNum+1;
+	}
+	
+	function drawList(info, num){
+		var str = '';
+		str += ' <div class="accordion-item">';
+		str += ' 	<h2 class="accordion-header" id="heading'+num+'">';
+		str += ' 		<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse'+num+'" ';
+		str += ' 		aria-expanded="flase" aria-controls="collapse'+num+'">'+info.addr+'('+info.rankAvg+'위)</button>';
+		str += ' 	</h2>';
+		str += ' 	<div id="collapse'+num+'" class="accordion-collapse collapse" aria-labelledby="heading'+num+'">';
+		str += ' 		<div class="accordion-body">';
+		str += ' 			<div class="mark-info">';
+		str += ' 				<ul>';
+		str += ' 					<li class="mark">중/대로(도로 폭 12m 이상)에서 거리 <span class="mark-road">'+info.dRoad+'</span>m</li>';
+		str += ' 					<li class="mark">파출소/지구대에서 거리 <span	class="mark-police">'+info.dPolice+'</span>m</li>';
+		str += ' 					<li class="mark">여성안심지킴이집에서 거리 <span	class="mark-conv">'+info.dConv+'</span>m</li>';
+		str += ' 					<li class="mark">반경 <span class="mark-road">'+info.dRoad+'</span>m	내 CCTV <span class="mark-cctv">'+info.cntCctv+'</span>개</li>';
+		str += ' 					<li class="mark">반경 <span class="mark-road">'+info.dRoad+'</span>m 내 보안등 <span class="mark-light">'+info.cntCctv+'</span>개</li>';
+		str += ' 					<li class="mark">반경 <span class="mark-road">'+info.dRoad+'</span>m	내 유흥주점 <span class="mark-ent">'+info.cntCctv+'</span>개	</li>';
+		str += ' 				</ul>';
+		str += ' 			</div>';
+		str += ' 		</div>';
+		str += ' 	</div>';
+		str += ' </div>';
+		
+		$("#myListAccordion").append(str);
+		
+
 	}
 </script>
 </html>
