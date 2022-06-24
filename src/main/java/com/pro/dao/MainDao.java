@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pro.dto.CctvDto;
+import com.pro.dto.ConvDto;
 import com.pro.dto.EntDto;
 import com.pro.dto.InfoDto;
 import com.pro.dto.LightDto;
@@ -85,14 +86,15 @@ public class MainDao {
 	}
 	
 	/* 여성안심까지 거리 & 좌표 */	
-	public InfoDto getConvInfo(InfoDto info) {
-		System.out.println("----dao.getConvInfo----");
+	public InfoDto getConvList(InfoDto info) {
+		System.out.println("----dao.getConvList----");
 		//System.out.println(info);
 		
-		InfoDto convInfo = sqlSession.selectOne("sql.selectConvInfo",info);
-		info.setdConv(convInfo.getdConv());
-		info.setConvX(convInfo.getConvX());
-		info.setConvY(convInfo.getConvY());
+		List<ConvDto> convList = sqlSession.selectList("sql.selectConvList", info);
+		//System.out.println(entList);
+		
+		info.setConvList(convList);
+		info.setCntConv(convList.size());
 		//System.out.println(info);
 		return info;
 	}
@@ -114,13 +116,7 @@ public class MainDao {
 		rank.setVid(2);
 		rank.setCode(-1);
 		info.setPoliceRank(sqlSession.selectOne("selectRank",rank));
-		
-		/* convRank */
-		rank.setValue(info.getdConv());
-		rank.setVid(6);
-		rank.setCode(-1);
-		info.setConvRank(sqlSession.selectOne("selectRank",rank));
-		
+				
 		/*entRank*/
 		rank.setValue(info.getCntEnt()*100*100/Math.pow(info.getdRoad(), 2));
 		rank.setVid(5);
@@ -138,6 +134,14 @@ public class MainDao {
 		rank.setVid(4);
 		rank.setCode(1);
 		info.setLightRank(sqlSession.selectOne("selectRank",rank));
+		
+		/* convRank */
+		rank.setValue(info.getCntConv()*100*100/Math.pow(info.getdRoad(), 2));
+		//System.out.println(info.getCntConv());
+		//System.out.println(rank.getValue());
+		rank.setVid(6);
+		rank.setCode(1);
+		info.setConvRank(sqlSession.selectOne("selectRank",rank));
 			
 		return info;
 	}

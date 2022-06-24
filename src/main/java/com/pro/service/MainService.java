@@ -20,7 +20,7 @@ public class MainService {
 		info = mainDao.getCctvList(info);
 		info = mainDao.getLightList(info);
 		info = mainDao.getEntList(info);
-		info = mainDao.getConvInfo(info);
+		info = mainDao.getConvList(info);
 		info = mainDao.getPoliceInfo(info);
 		info = mainDao.getRankInfo(info);
 

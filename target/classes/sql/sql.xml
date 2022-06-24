@@ -56,15 +56,13 @@
 		]]>
 	</select>
 	
-	<!-- 여성안심지킴이집  거리 & 좌표 -->
-	<select id = "selectConvInfo" parameterType = "com.pro.dto.InfoDto" resultType="com.pro.dto.InfoDto">
+	<!-- 여성안심지킴이집  거리 좌표 -->
+	<select id = "selectConvList" parameterType = "com.pro.dto.InfoDto" resultType="com.pro.dto.ConvDto">
 		<![CDATA[
-			select st_distance(c.geom,ST_SetSRID(ST_Point(#{x}, #{y}),3857)) dConv,
-				   split_part(btrim(split_part(st_astext(c.geom),'(',2),')'),' ',1) convX,
-				   split_part(btrim(split_part(st_astext(c.geom),'(',2),')'),' ',2) convY
+			select split_part(btrim(split_part(st_astext(c.geom),'(',2),')'),' ',1) convX,
+	   			   split_part(btrim(split_part(st_astext(c.geom),'(',2),')'),' ',2) convY
 			from dongjak_conv c
-			order by st_distance(c.geom,ST_SetSRID(ST_Point(#{x}, #{y}),3857)) asc
-			limit 1
+			where st_intersects(c.geom, st_buffer(ST_SetSRID(ST_Point(#{x}, #{y}),3857),#{dRoad}))
 		]]>
 	</select>
 
