@@ -11,12 +11,40 @@ body, div, ul, li, dl, dt, ol, h1, h2, h3, h4, h5, h6, input, fieldset, legend, 
 
 .float-left{float:left;}
 .float-right{float:right;}
-ul{list-style:none; padding-left:0px;}
+ul{list-style-position:inside !important; list-style:square; padding-left:10px;}
+li{padding:5px 0px;}
 
+html,body,#wrap, #content {height:100%;} 
+#logo{padding:15px; color:#326cf9; font-size:40px; font-weight:bold; border-bottom: 1px solid #aaa;}
 #wrap{width:100%}
-#left{padding:20px; width:20%}
-#right{padding:20px; width:80%;}
+#left{width:25%; height:100%; border-right: 1px solid #aaa; }
+#right{width:75%; height:100%}
+
+#searched-bld{padding:10px;}
 
 .mark{background-color:#fff;}
 
-#map{width:100%;}
+#map{width:100%;height:100%;}
+
+img{width:25px;}
+
+#legend td,#marker-legend td{text-align:center; padding:5px;}
+#legend {position:fixed; right: 10px; bottom:15px; background-color:#fff; border:1px solid #000; opacity:0.9;}
+#marker-legend {position:fixed; right:10px; bottom:240px; background-color:#fff; border:1px solid #000; opacity:0.9;}
+
+button {margin:16px 22px 16px 22px !important; display:block !important; font-size:20px !important; width:90%; height:50px;}
+
+#sel-addr {font-size: 18px; font-weight:bold; margin-bottom:5px;}
+#sel-avg {font-size:24px;}
+.desc{padding:10px 0px 0px 30px; color:#777;}
+li>span{font-weight:bold;}
+#marked-blds{border-top:1px solid #aaa;}
+#marked-blds-title{padding:16px; font-size:28px; font-weight:bold;}
+#priority>.btn{width:200px; margin-left:20px;}
+.card{border-top:1px none #fff !important;}
+.input-group-text{width:300px !important; padding-left:25px;}
+#priority input{text-align:center; margin-right:10px;}
+.accordion-item{border:1px none #fff;}
+.accordion-button{margin:0px !important; width:100%; height:auto; border: 1px dashed #bbb;}
+.accordion-body{padding:16px;border: 1px dashed #bbb;}
+.myListRankAvg{font-weight:bold; font-size:24px;}

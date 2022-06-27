@@ -24,12 +24,13 @@
 	<div id="wrap">
 	
 		<div id="header">
-			<div id="logo">MySafeHome</div>
+			
 		</div>
 		<!-- header -->
 
 		<div id="content" class="clearfix">
 			<div id="left" class="float-left">
+				<div id="logo">MySafeHome</div>
 				<div id="search">
 					<button id="search-btn" class="btn btn-outline-primary">주소 검색</button>
 				</div>
@@ -38,9 +39,88 @@
 					
 				</div>
 				<!-- serched-bld -->
-				<div id="marked-blds">
+				<div id="marked-blds" class = "clearfix">
 				
-					<div id="marked-blds-title">My List</div>
+					<div id="marked-blds-title"  class="float-left" >My List</div>
+					
+					<div id="priority">
+						<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+						aria-expanded="false" aria-controls="collapseExample">반영 비율 변경</button>
+						
+						<div class="collapse" id="collapseExample">
+							<div class="card card-body">
+								<table id="priority-table">
+									<tr>
+										<td>
+											<div class="input-group mb-3">
+												<span class="input-group-text" id="inputGroup-sizing-default">중/대로에서 거리</span> 
+												<input id="input-road" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="30">
+												%
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="input-group mb-3">
+												<span class="input-group-text" id="inputGroup-sizing-default">파출소/지구대에서 거리</span> 
+												<input id="input-police" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="14">
+												%										
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="input-group mb-3">
+												<span class="input-group-text" id="inputGroup-sizing-default">CCTV 수</span> 
+												<input id="input-cctv" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="14">
+												%
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="input-group mb-3">
+												<span class="input-group-text" id="inputGroup-sizing-default">보안등  수</span> 
+												<input id="input-light" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="14">
+												%										
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="input-group mb-3">
+												<span class="input-group-text" id="inputGroup-sizing-default">유흥주점 	수</span> 
+												<input id="input-ent" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="14">
+												%
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="input-group mb-3">
+												<span class="input-group-text" id="inputGroup-sizing-default">여성안심지킴이집(편의점) 수</span> 
+												<input id="input-conv" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="14">
+												%										
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>반영 비율 합계 : <span id="priority-sum">100</span>% <span id = "priority-desc">(반영 비율 합계는 100%가 되어야 함.)</span></td>
+									</tr>
+									<tr>
+										<td>
+											<button id = "btn-change"class="btn btn-primary">변경</button> 
+											
+										</td>
+									</tr>
+								</table>
+							</div>
+							<!-- card -->
+						</div>
+						<!-- collapse -->
+					
+					</div>
+					<!-- priority -->
 					
 					
 					<div class="accordion" id="myListAccordion">
@@ -57,75 +137,62 @@
 			
 			
 			<div id="right" class="float-left">
-				<div id="priority">
-					<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-					aria-expanded="false" aria-controls="collapseExample">반영 비율 변경</button>
-					
-					<div class="collapse" id="collapseExample">
-						<div class="card card-body">
-							<table id="priority table">
-								<tr>
-									<td>
-										<div class="input-group mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-default">중/대로에서 거리</span> 
-											<input id="input-road" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="30">
-											%
-										</div>
-									</td>
-									<td>
-										<div class="input-group mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-default">CCTV 수</span> 
-											<input id="input-cctv" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="14">
-											%
-										</div>
-									</td>
-									<td>
-										<div class="input-group mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-default">유흥주점 	수</span> 
-											<input id="input-ent" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="14">
-											%
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<div class="input-group mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-default">파출소/지구대에서 거리</span> 
-											<input id="input-police" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="14">
-											%										
-										</div>
-									</td>
-									<td>
-										<div class="input-group mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-default">보안등  수</span> 
-											<input id="input-light" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="14">
-											%										
-										</div>
-									</td>
-									<td>
-										<div class="input-group mb-3">
-											<span class="input-group-text" id="inputGroup-sizing-default">여성안심지킴이집(편의점) 수</span> 
-											<input id="input-conv" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="14">
-											%										
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="3">
-										<button id = "btn-change"class="btn btn-primary">변경</button> 
-										반영 비율 합계 : <span id="priority-sum">100</span>% <span id = "priority-desc">(반영 비율 합계는 100%가 되어야 합니다.)</span>
-									</td>
-								</tr>
-							</table>
-						</div>
-						<!-- card -->
-					</div>
-					<!-- collapse -->
-				
-				</div>
-				<!-- priority -->
-				
 				<div id="map"></div>
+				<div id="legend" style="visibility:hidden">
+					<table>
+						<tr>
+							<td><img src="./resources/img/circle.png"/></td>
+							<td>반경 = 중/대로까지 거리</td>
+						</tr>
+						<tr>
+							<td><img src="./resources/img/police.png"/></td>
+							<td>파출소</td>
+						</tr>
+						<tr>
+							<td><img src="./resources/img/cctv.png"/></td>
+							<td>cctv</td>
+						</tr>
+						<tr>
+							<td><img src="./resources/img/light.png"/></td>
+							<td>보안등</td>
+						</tr>
+						<tr>
+							<td><img src="./resources/img/ent.png"/></td>
+							<td>유흥주점</td>
+						</tr>
+						<tr>
+							<td><img src="./resources/img/conv.png"/></td>
+							<td>여성안심지킴이집</td>
+						</tr>			
+					</table>
+				</div>
+				<div id="marker-legend" style="visibility:hidden">
+					<table>
+						<tr>
+							<td colspan="2">순위 평균 기준</td>
+						</tr>
+						<tr>
+							<td><img src="./resources/img/marker1.png"/></td>
+							<td> 0~20위 </td>
+						</tr>
+						<tr>
+							<td><img src="./resources/img/marker2.png"/></td>
+							<td> 21~40위 </td>
+						</tr>
+						<tr>
+							<td><img src="./resources/img/marker3.png"/></td>
+							<td> 41~60위 </td>
+						</tr>
+						<tr>
+							<td><img src="./resources/img/marker4.png"/></td>
+							<td> 61~80위 </td>
+						</tr>
+						<tr>
+							<td><img src="./resources/img/marker5.png"/></td>
+							<td> 81~100위 </td>
+						</tr>			
+					</table>
+				</div>
 
 			</div>
 			<!-- right -->
@@ -216,6 +283,7 @@
 
 		}}).open(); //카카오주소검색 api 끝
 
+
 	})//주소검색 버튼 click event 끝
 	
 	/* myList추가 버튼 클릭 */
@@ -231,8 +299,33 @@
 		console.log("아코디온 클릭");
 		var $this = $(this);
 		var no = $this.data("no");
-		drawlayer(myList[no]);
+		var code = $("#acco-btn"+no+"").attr("aria-expanded")
+		if(code =="true"){
+			drawlayer(myList[no]);
+		} else {
+			//이전 벡터 레이어 지우기
+			map.getLayers().getArray().filter(layer => layer.get('name') ==='vLayer').forEach(layer => map.removeLayer(layer));
+			map.getLayers().getArray().filter(layer => layer.get('name') ==='pLayer').forEach(layer => map.removeLayer(layer));
+			map.getLayers().getArray().filter(layer => layer.get('name') ==='eLayer').forEach(layer => map.removeLayer(layer));
+			map.getLayers().getArray().filter(layer => layer.get('name') ==='conLayer').forEach(layer => map.removeLayer(layer));
+			map.getLayers().getArray().filter(layer => layer.get('name') ==='ccLayer').forEach(layer => map.removeLayer(layer));
+			map.getLayers().getArray().filter(layer => layer.get('name') ==='lLayer').forEach(layer => map.removeLayer(layer));			
+		}
+
+		
 	})
+	
+	/* 마커클릭 */
+	map.on('click', function (evt) {
+	    var feature = map.forEachFeatureAtPixel(evt.pixel,
+	        function (feature) {
+	            return feature;
+	        });
+	        
+	    if (feature) {
+	        alert(feature.get('name'));
+	    }
+	});
 	
 	/* 반영 비율 숫자 변경 */
 	$(".form-control").keyup(function() {
@@ -251,6 +344,7 @@
 	/* 변경 버튼 클릭 */
 	$("#btn-change").on("click", function(){
 		console.log("변경 버튼 클릭")
+		
 		var sum = Number($("#input-road").val()) + Number($("#input-police").val()) + Number($("#input-cctv").val()) + 
 		  Number($("#input-light").val()) + Number($("#input-ent").val()) + Number($("#input-conv").val());
 		changeRankAvg();
@@ -268,7 +362,7 @@
 		
 		//center, zoom 변경
 		map.getView().setCenter([info.x, info.y]);
-		map.getView().setZoom(17);
+		map.getView().setZoom(18);
 		
 		var vectorSource = new ol.source.Vector();
 		
@@ -419,6 +513,8 @@
 		});
 		
 		map.addLayer(vectorLayer); 
+		
+		$("#legend").attr("style","visibility:visible")
 
 	}
 	
@@ -439,8 +535,8 @@
 		str += ' 		<li class="sel">반경 <span class="sel-road">'+info.dRoad.toFixed(2)+'</span>m 내 보안등 <span id="sel-light">'+info.cntLight+'</span>개 (<span id="sel-light-rank">'+info.lightRank+'</span>위)</li>';
 		str += ' 		<li class="sel">반경 <span class="sel-road">'+info.dRoad.toFixed(2)+'</span>m 내 유흥주점 <span id="sel-ent">'+info.cntEnt+'</span>개 (<span id="sel-ent-rank">'+info.entRank+'</span>위)</li>';
 		str += ' 		<li class="sel">반경 <span class="sel-road">'+info.dRoad.toFixed(2)+'</span>m 내 여성안심지킴이집 <span id="sel-ent">'+info.cntConv+'</span>개 (<span id="sel-ent-rank">'+info.convRank+'</span>위)</li>';
-		str += ' 		<li class="desc">*동작구 내 백분위 순위. 0에 가까울 수록 좋음</li>';
 		str += ' 	</ul>';
+		str += ' 	<div class="desc">* 순위 : 동작구 내 백분위 순위.</div>'
 		str += ' </div>';
 		str += ' <button id="add-btn" class="btn btn-outline-primary">My List 추가</button>'
 		
@@ -451,16 +547,19 @@
 	function addMyList(info){
 		drawList(info, listNum);
 		addMarker(info);
+		
 		myList[listNum] = info;
 		//console.log(myList);
 		listNum = listNum+1;
+		//주소검색결과 초기화
+		$("#searched-bld").html('');
 	}
 	
 	function drawList(info, num){
 		var str = '';
 		str += ' <div class="accordion-item">';
 		str += ' 	<h2 class="accordion-header" id="heading'+num+'">';
-		str += ' 		<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse'+num+'" ';
+		str += ' 		<button id="acco-btn'+num+'"class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse'+num+'" ';
 		str += ' 		aria-expanded="flase" aria-controls="collapse'+num+'" data-no="'+num+'">'+info.addr+'(<span class="myListRankAvg">'+info.rankAvg.toFixed(2)+'</span>위)</button>';
 		str += ' 	</h2>';
 		str += ' 	<div id="collapse'+num+'" class="accordion-collapse collapse" aria-labelledby="heading'+num+'">';
@@ -500,7 +599,8 @@
 		console.log(url);
 
 		var feature = new ol.Feature({
-			geometry : new ol.geom.Point([info.x, info.y])
+			geometry : new ol.geom.Point([info.x, info.y]),
+			name : info.addr
 		});
 		
 		var markerSource = new ol.source.Vector();
@@ -512,13 +612,14 @@
 				new ol.style.Style({
 					image : new ol.style.Icon({
 						opacity : 1,
-						scale : 1,
+						scale : 1.5,
 						src : url
-					})
+					}),
+					zindex:99
 				}),
 				new ol.style.Style({
 					text : new ol.style.Text({
-						 font: '15px Calibri,sans-serif',
+						 font: '28px Calibri,sans-serif',
 					     overflow: true,
 					     fill: new ol.style.Fill({
 					       color: '#000'
@@ -535,13 +636,20 @@
 		});
 		
 		map.addLayer(markerLayer); 
+		$("#marker-legend").attr("style","visibility:visible")
 		
 	}
 	
 /* 	반영 비율 변경 */
 	function changeRankAvg(){
-		$("#searched-bld").html('');
+		//이전 벡터 레이어 지우기
 		map.getLayers().getArray().filter(layer => layer.get('name') ==='markerLayer').forEach(layer => map.removeLayer(layer));
+
+		
+		//주소검색결과 초기화
+		$("#searched-bld").html('');
+		
+		//반영비율 적용 rank avg 계산, 화면에 반영		
 		for(i=0; i<listNum; i++){
 			var info = myList[i];
 			var rankAvg = (info.roadRank*$("#input-road").val()/100)+(info.policeRank*$("#input-police").val()/100)+(info.cctvRank*$("#input-cctv").val()/100)
