@@ -95,7 +95,7 @@ public class MainDao {
 		
 		info.setConvList(convList);
 		info.setCntConv(convList.size());
-		//System.out.println(info);
+		System.out.println(info);
 		return info;
 	}
 	
@@ -110,30 +110,36 @@ public class MainDao {
 		rank.setVid(1);
 		rank.setCode(-1);
 		info.setRoadRank(sqlSession.selectOne("selectRank",rank));
+		System.out.println(info.getRoadRank());
 		
 		/*policeRank*/
 		rank.setValue(info.getdPolice());
 		rank.setVid(2);
 		rank.setCode(-1);
 		info.setPoliceRank(sqlSession.selectOne("selectRank",rank));
+		System.out.println(info.getPoliceRank());
 				
 		/*entRank*/
 		rank.setValue(info.getCntEnt()*100*100/Math.pow(info.getdRoad(), 2));
 		rank.setVid(5);
 		rank.setCode(-1);
 		info.setEntRank(sqlSession.selectOne("selectRank",rank));
+		System.out.println(info.getEntRank());
 		
 		/* cctvRank */
 		rank.setValue(info.getCntCctv()*100*100/Math.pow(info.getdRoad(), 2));
+		System.out.println(rank.getValue());
 		rank.setVid(3);
 		rank.setCode(1);
 		info.setCctvRank(sqlSession.selectOne("selectRank",rank));
+		System.out.println(info.getCctvRank());
 		
 		/* lightRank */
 		rank.setValue(info.getCntLight()*100*100/Math.pow(info.getdRoad(), 2));
 		rank.setVid(4);
 		rank.setCode(1);
 		info.setLightRank(sqlSession.selectOne("selectRank",rank));
+		System.out.println(info.getLightRank());
 		
 		/* convRank */
 		rank.setValue(info.getCntConv()*100*100/Math.pow(info.getdRoad(), 2));
@@ -142,7 +148,9 @@ public class MainDao {
 		rank.setVid(6);
 		rank.setCode(1);
 		info.setConvRank(sqlSession.selectOne("selectRank",rank));
-			
+		System.out.println(info.getConvRank());
+		
+		System.out.println(info);
 		return info;
 	}
 }

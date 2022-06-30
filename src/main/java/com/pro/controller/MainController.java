@@ -26,7 +26,7 @@ public class MainController {
 	@ResponseBody
 	public InfoDto getInfo(@RequestParam("x") double x, @RequestParam("y") double y) {
 		System.out.println("----getInfo.controller----");
-		//System.out.println(x+","+y);
+		System.out.println(x+","+y);
 		
 		InfoDto info = new InfoDto();
 		info.setX(x);

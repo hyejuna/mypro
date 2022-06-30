@@ -53,7 +53,7 @@
 									<tr>
 										<td>
 											<div class="input-group mb-3">
-												<span class="input-group-text" id="inputGroup-sizing-default">중/대로에서 거리</span> 
+												<span class="input-group-text" id="inputGroup-sizing-default">대로에서 거리</span> 
 												<input id="input-road" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="30">
 												%
 											</div>
@@ -131,18 +131,42 @@
 
 				</div>
 				<!-- marked-blds -->
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+					My List 순위 비교
+				</button>
 
 			</div>
 			<!-- left -->
 			
 			
 			<div id="right" class="float-left">
-				<div id="map"></div>
+				<div id="map">
+					<div id="popup"></div>	
+				</div>
+				<div id = "geoMapSelect"class="btn-group" role="group" aria-label="Basic outlined example">
+					<button type="button" id="selBtn1" class="btn btn-outline-primary"><img src="./resources/img/cctv.png"/></button>
+					<button type="button" id="selBtn2" class="btn btn-outline-primary"><img src="./resources/img/light.png"/></button>
+					<button type="button" id="selBtn3" class="btn btn-outline-primary"><img src="./resources/img/ent.png"/></button>
+					<button type="button" id="selBtn4" class="btn btn-outline-primary"><img src="./resources/img/conv.png"/></button>
+					<button type="button" id="selBtn5" class="btn btn-outline-primary"><img src="./resources/img/police.png"/></button>
+					<button type="button" id="btn-home" class="btn btn-outline-primary"><img src="./resources/img/home.png"/></button>
+				</div>
+				<div id="geoLayer-legend1" class="geoLegend" style="visibility:hidden">
+					<table>
+						<tr>
+							<td>cctv 수<br>(단위 면적 당)</td>
+						</tr>
+						<tr>
+							<td><img src="./resources/img/cctv_legend.PNG"/></td>
+						</tr>
+						
+					</table>
+				</div>
 				<div id="legend" style="visibility:hidden">
 					<table>
 						<tr>
 							<td><img src="./resources/img/circle.png"/></td>
-							<td>반경 = 중/대로까지 거리</td>
+							<td>반경 = 대로까지 거리</td>
 						</tr>
 						<tr>
 							<td><img src="./resources/img/police.png"/></td>
@@ -200,6 +224,45 @@
 		<!-- content -->
 	</div>
 	<!-- wrap -->
+	
+	<!-- Modal -->
+	<div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">My List 순위 비교</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <table id="modal-table">
+	        	<tr>
+	        		<th>구분</th>
+	        		<th>대로</th>
+	        		<th>경찰관서</th>
+	        		<th>cctv</th>
+	        		<th>보안등</th>
+	        		<th>유흥주점</th>
+	        		<th>여성안심</th>
+	        		<th>평균</th>	        		
+	        	</tr>
+				<tr id="percent">
+	        		<td>반영비율(%)</td>
+	        		<td id="td-road">30</td>
+	        		<td id="td-police">14</td>
+	        		<td id="td-cctv">14</td>
+	        		<td id="td-light">14</td>
+	        		<td id="td-ent">14</td>
+	        		<td id="td-conv">14</td>
+	        		<td>-</td>	   
+	        	</tr>
+	        	
+	        </table>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
+	
 </body>
 
 <script type="text/javascript">
@@ -209,6 +272,7 @@
 	var searchedInfo = {};
 	var listNum = 0;
 	var myList = [];
+	var no = 0;
 	
 	/* 초기 화면 지도 */
 	var view = new ol.View({
@@ -224,8 +288,15 @@
 				url : " http://xdworld.vworld.kr:8080/2d/Base/201512/{z}/{x}/{y}.png"
 			})
 		}) ],
+	 	controls: ol.control.defaults({
+          attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+            collapsible: false
+          })
+        }),
 		view : view
 	});
+	
+
 
 	/* 주소 검색 */
 	$('#search-btn').on("click",function() {
@@ -233,7 +304,7 @@
 		
 		var point = '';
 		new daum.Postcode({ oncomplete : function(data) {
-			//console.log(data.address);
+			console.log(data.address);
 			addr = data.address;
 			var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + addr + "&key=AIzaSyDl9EqQnWPqoxn5ZOEOAde3auL9VBp4NYU";
 			
@@ -245,46 +316,27 @@
 					//주소 검색한 건물 좌표 가져오기
 					x = data.results[0].geometry.location.lng;
 					y = data.results[0].geometry.location.lat;
-					//console.log(x + "," + y);
+					console.log(x + "," + y);
 					
 					point = ol.proj.transform([ x, y ],'EPSG:4326','EPSG:3857');
 					//console.log(point);
 					var point = {x:point[0], y:point[1]}
 					//console.log(point)
 					
-					$.ajax({
-						/* 요청 */
-						url : "${pageContext.request.contextPath }/getInfo", 	
-						type : "post",
-						data : point, 
-						/* 응답 */
-						dataType : "json",
-						success : function(info) {
-							/*성공시 처리해야될 코드 작성*/
-							
-							//console.log(info);
-							searchedInfo = info;//전역변수에 담기
-							drawlayer(info);
-							info.addr = addr;
-							showInfo(info);
-							
-						},
-						error : function(XHR, status, error) {
-							console.error(status + " : " + error);
-						}
-						
-					});
+					getInfo(point, addr);
 					
 				},
 				error : function(XHR,status, error) {
 					console.error(status + " : " + error);
 				}
-			}); //ajax 끝
+			}); // geo코딩 ajax 끝
 
 		}}).open(); //카카오주소검색 api 끝
 
 
 	})//주소검색 버튼 click event 끝
+	
+	
 	
 	/* myList추가 버튼 클릭 */
 	$('#searched-bld').on("click","#add-btn",function() {
@@ -323,9 +375,37 @@
 	        });
 	        
 	    if (feature) {
-	        alert(feature.get('name'));
+	    	var no = feature.get('num')
+	        $("#acco-btn"+no+"").attr("class","accordion-button");
+	    	$("#acco-btn"+no+"").attr("aria-expanded","true");
+	    	$("#collapse"+no+"").attr("class","accordion-collapse collapse show");
+	    	console.log(no);
+	    } else {
+	    	let coordinate = evt.coordinate;
+	    	console.log(coordinate);
+	    	var geoco = ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326');
+	    	console.log(geoco);
+	    	var point = {x:coordinate[0], y:coordinate[1]}
+						
+			var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + geoco[1]+','+geoco[0] + "&key=AIzaSyDl9EqQnWPqoxn5ZOEOAde3auL9VBp4NYU";
+			$.ajax({
+				url : url,
+				type : "post",
+				dataType : "json",
+				success : function(data) {
+					console.log(data);	
+					var addr = data.results[0].formatted_address.replace("대한민국 서울특별시","서울");
+					getInfo(point, addr);
+					
+				},
+				error : function(XHR,status, error) {
+					console.error(status + " : " + error);
+				}
+			}); // geo코딩 ajax 끝
+			
 	    }
-	});
+	}); 
+
 	
 	/* 반영 비율 숫자 변경 */
 	$(".form-control").keyup(function() {
@@ -350,6 +430,112 @@
 		changeRankAvg();
 	})
 	
+	/* 비교테이블 창 닫을 때 */
+	$(".btn-close").on("click", function(){
+		console.log("닫기 클릭");
+		var mbr = markerSource.getExtent();
+		map.getView().fit(mbr);
+		
+	})
+	
+	/* 특정 지점 치안정보 호출 */
+	function getInfo(point, addr){
+		$.ajax({
+			/* 요청 */
+			url : "${pageContext.request.contextPath }/getInfo", 	
+			type : "post",
+			data : point, 
+			/* 응답 */
+			dataType : "json",
+			success : function(info) {
+				/*성공시 처리해야될 코드 작성*/
+				
+				//console.log(info);
+				searchedInfo = info;//전역변수에 담기
+				drawlayer(info);
+				info.addr = addr;
+				showInfo(info);
+				
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+			
+		}); // 치안정보 호출 ajax 끝
+		
+	}
+					
+	/* 레이어 버튼 클릭 */
+	$("#btn-home").on("click", function(){
+		console.log("home클릭")
+		map.getLayers().getArray().filter(layer => layer.get('name') ==='geolayer').forEach(layer => map.removeLayer(layer));
+		console.log(map.getLayers().getArray())
+		$("#geoLayer-legend1").attr("style","visibility:hidden")
+	})
+		
+	$("#selBtn1").on("click", function(){
+		//console.log("레이어 선택 버튼")
+		removeLayer();
+		var geolayer = new ol.layer.Tile({
+			source : new ol.source.TileWMS({
+				url : 'http://localhost:8080/geoserver/cite/wms?service=WMS&version=1.1.0&request=GetMap&layers=cite:cctv_cnt&styles=&bbox=1.4126983E7,4505629.5,1.4135596E7,4511282.5&srs=EPSG:3857&format=image/png'
+			}),
+			name : 'geolayer'
+		})
+		map.addLayer(geolayer);	
+		$("#geoLayer-legend1").attr("style","visibility:visible")
+	})
+	
+	$("#selBtn2").on("click", function(){
+		//console.log("레이어 선택 버튼")
+		removeLayer();
+		var geolayer = new ol.layer.Tile({
+			source : new ol.source.TileWMS({
+				url : 'http://localhost:8080/geoserver/cite/wms?service=WMS&version=1.1.0&request=GetMap&layers=cite:cctv_cnt&styles=&bbox=1.4126983E7,4505629.5,1.4135596E7,4511282.5&srs=EPSG:3857&format=image/png'
+			}),
+			name : 'geolayer'
+		})
+		map.addLayer(geolayer);	
+	})
+	
+	$("#selBtn3").on("click", function(){
+		//console.log("레이어 선택 버튼")
+		removeLayer();
+		var geolayer = new ol.layer.Tile({
+			source : new ol.source.TileWMS({
+				url : 'http://localhost:8080/geoserver/cite/wms?service=WMS&version=1.1.0&request=GetMap&layers=cite:cctv_cnt&styles=&bbox=1.4126983E7,4505629.5,1.4135596E7,4511282.5&srs=EPSG:3857&format=image/png'
+			}),
+			name : 'geolayer'
+		})
+		map.addLayer(geolayer);	
+	})
+	
+	$("#selBtn4").on("click", function(){
+		//console.log("레이어 선택 버튼")
+		removeLayer();
+		var geolayer = new ol.layer.Tile({
+			source : new ol.source.TileWMS({
+				url : 'http://localhost:8080/geoserver/cite/wms?service=WMS&version=1.1.0&request=GetMap&layers=cite:cctv_cnt&styles=&bbox=1.4126983E7,4505629.5,1.4135596E7,4511282.5&srs=EPSG:3857&format=image/png'
+			}),
+			name : 'geolayer'
+		})
+		map.addLayer(geolayer);	
+	})
+	
+	$("#selBtn5").on("click", function(){
+		//console.log("레이어 선택 버튼")
+		removeLayer();
+		var geolayer = new ol.layer.Tile({
+			source : new ol.source.TileWMS({
+				url : 'http://localhost:8080/geoserver/cite/wms?service=WMS&version=1.1.0&request=GetMap&layers=cite:cctv_cnt&styles=&bbox=1.4126983E7,4505629.5,1.4135596E7,4511282.5&srs=EPSG:3857&format=image/png'
+			}),
+			name : 'geolayer'
+		})
+		map.addLayer(geolayer);	
+		
+	})
+	
+	
 	/* 벡터 레이어 그리기 */
 	function drawlayer(info){
 		//이전 벡터 레이어 지우기
@@ -372,7 +558,7 @@
 		});
 		vectorSource.addFeature(feature);
 		
-		//중/대로에 닿는 원 그리기
+		//대로에 닿는 원 그리기
 		var feature = new ol.Feature({
 			geometry : new ol.geom.Circle([info.x, info.y], info.dRoad)
 		})
@@ -529,7 +715,7 @@
 		str += ' <div id="sel-addr">'+info.addr+' (<span id="sel-avg">'+rankAvg.toFixed(2)+'</span>위)</div>';
 		str += ' <div id="sel-info">';
 		str += ' 	<ul>';
-		str += ' 		<li class="sel">중/대로(도로 폭 12m 이상)에서 거리 <span id="sel-road">'+info.dRoad.toFixed(2)+'</span>m (<span id="sel-road-rank">'+info.roadRank+'</span>위)</li>';
+		str += ' 		<li class="sel">대로(도로 폭 20m 이상)에서 거리 <span id="sel-road">'+info.dRoad.toFixed(2)+'</span>m (<span id="sel-road-rank">'+info.roadRank+'</span>위)</li>';
 		str += ' 		<li class="sel">파출소/지구대에서 거리 <span id="sel-police">'+info.dPolice.toFixed(2)+'</span>m (<span id="sel-police-rank">'+info.policeRank+'</span>위)</li>';
 		str += ' 		<li class="sel">반경 <span class="sel-road">'+info.dRoad.toFixed(2)+'</span>m 내 CCTV <span id="sel-cctv">'+info.cntCctv+'</span>개 (<span id="sel-cctv-rank">'+info.cctvRank+'</span>위)</li>';
 		str += ' 		<li class="sel">반경 <span class="sel-road">'+info.dRoad.toFixed(2)+'</span>m 내 보안등 <span id="sel-light">'+info.cntLight+'</span>개 (<span id="sel-light-rank">'+info.lightRank+'</span>위)</li>';
@@ -546,8 +732,8 @@
 	
 	function addMyList(info){
 		drawList(info, listNum);
-		addMarker(info);
-		
+		addMarker(info, listNum);
+		addTable(info, listNum);
 		myList[listNum] = info;
 		//console.log(myList);
 		listNum = listNum+1;
@@ -566,7 +752,7 @@
 		str += ' 		<div class="accordion-body">';
 		str += ' 			<div class="mark-info">';
 		str += ' 				<ul>';
-		str += ' 					<li class="mark">중/대로(도로 폭 12m 이상)에서 거리 <span class="mark-road">'+info.dRoad.toFixed(2)+'</span>m (<span class="mark-road-rank">'+info.roadRank+'</span>위)</li>';
+		str += ' 					<li class="mark">대로(도로 폭 20m 이상)에서 거리 <span class="mark-road">'+info.dRoad.toFixed(2)+'</span>m (<span class="mark-road-rank">'+info.roadRank+'</span>위)</li>';
 		str += ' 					<li class="mark">파출소/지구대에서 거리 <span	class="mark-police">'+info.dPolice.toFixed(2)+'</span>m(<span class="mark-police-rank">'+info.policeRank+'</span>위)</li>';
 		str += ' 					<li class="mark">반경 <span class="mark-road">'+info.dRoad.toFixed(2)+'</span>m	내 CCTV <span class="mark-cctv">'+info.cntCctv+'</span>개(<span class="mark-cctv-rank">'+info.cctvRank+'</span>위)</li>';
 		str += ' 					<li class="mark">반경 <span class="mark-road">'+info.dRoad.toFixed(2)+'</span>m 내 보안등 <span class="mark-light">'+info.cntLight+'</span>개(<span class="mark-light-rank">'+info.lightRank+'</span>위)</li>';
@@ -581,7 +767,7 @@
 		$("#myListAccordion").append(str);
 	}
 	
-	function addMarker(info){
+	function addMarker(info, num){
 		var rank = info.rankAvg.toFixed(2);
 		var code = 0;
 		if(rank <=20){
@@ -600,7 +786,8 @@
 
 		var feature = new ol.Feature({
 			geometry : new ol.geom.Point([info.x, info.y]),
-			name : info.addr
+			num : num,
+			
 		});
 		
 		var markerSource = new ol.source.Vector();
@@ -656,9 +843,62 @@
 		  	 			  +(info.lightRank*$("#input-light").val()/100)+(info.entRank*$("#input-ent").val()/100)+(info.convRank*$("#input-conv").val()/100);
 			$("#heading"+i+"").find(".myListRankAvg").html(rankAvg.toFixed(2));
 			myList[i].rankAvg = rankAvg;
-			addMarker(myList[i]);
+			addMarker(myList[i], i);
+			$("#rankavg"+i+"").html(rankAvg.toFixed(2));
+			
 		}
+		
+		//비교 table 반영비율 변경
+		$("#td-road").html($("#input-road").val());
+		$("#td-police").html($("#input-police").val());
+		$("#td-cctv").html($("#input-cctv").val());
+		$("#td-light").html($("#input-light").val());
+		$("#td-ent").html($("#input-ent").val());
+		$("#td-conv").html($("#input-conv").val());
 	
 	}
+	
+	
+	/* mylist 순위 비교 테이블에 추가 */
+	function addTable(info,num){
+		var str = ''
+		str += ' <tr>';
+		str += ' 	<td>'+info.addr+'</td>';
+		str += ' 	<td'+classVf(info.roadRank)+'>'+info.roadRank+'</td>';
+		str += ' 	<td'+classVf(info.policeRank)+'>'+info.policeRank+'</td>';
+		str += ' 	<td'+classVf(info.cctvRank)+'>'+info.cctvRank+'</td>';
+		str += ' 	<td'+classVf(info.lightRank)+'>'+info.lightRank+'</td>';
+		str += ' 	<td'+classVf(info.entRank)+'>'+info.entRank+'</td>';
+		str += ' 	<td'+classVf(info.convRank)+'>'+info.convRank+'</td>';
+		str += ' 	<td id="rankavg'+num+'"'+classVf(info.rankAvg)+'>'+info.rankAvg.toFixed(2)+'</td>';
+		str += ' </tr>';
+		
+		$("#modal-table").append(str);
+		
+		function classVf(value){
+			console.log(value)
+			var verify = ""
+			if(value<=30){
+				verify = ' class="blue"'
+			} else if(value >=70){
+				verify = ' class="red"'
+			}
+			console.log(verify)
+			return verify;
+		}	
+	}
+	
+	/* 레이어 초기화 */
+	function removeLayer(){
+		map.getLayers().getArray().filter(layer => layer.get('name') ==='vLayer').forEach(layer => map.removeLayer(layer));
+		map.getLayers().getArray().filter(layer => layer.get('name') ==='pLayer').forEach(layer => map.removeLayer(layer));
+		map.getLayers().getArray().filter(layer => layer.get('name') ==='eLayer').forEach(layer => map.removeLayer(layer));
+		map.getLayers().getArray().filter(layer => layer.get('name') ==='conLayer').forEach(layer => map.removeLayer(layer));
+		map.getLayers().getArray().filter(layer => layer.get('name') ==='ccLayer').forEach(layer => map.removeLayer(layer));
+		map.getLayers().getArray().filter(layer => layer.get('name') ==='lLayer').forEach(layer => map.removeLayer(layer));
+		map.getLayers().getArray().filter(layer => layer.get('name') ==='geolayer').forEach(layer => map.removeLayer(layer));
+		
+	}
+	
 </script>
 </html>

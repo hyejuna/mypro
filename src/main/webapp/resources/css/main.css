@@ -25,6 +25,7 @@ html,body,#wrap, #content {height:100%;}
 .mark{background-color:#fff;}
 
 #map{width:100%;height:100%;}
+#popup{width:100px; background-color:#fff;}
 
 img{width:25px;}
 
@@ -48,3 +49,16 @@ li>span{font-weight:bold;}
 .accordion-button{margin:0px !important; width:100%; height:auto; border: 1px dashed #bbb;}
 .accordion-body{padding:16px;border: 1px dashed #bbb;}
 .myListRankAvg{font-weight:bold; font-size:24px;}
+
+#modal-table{width:100%;}
+#modal-table td, #modal-table th{border:1px solid #aaa; padding:5px; text-align:center;}
+#percent>td{color:#888;}
+.blue {color:#0000ff;}
+.red{color:#ff0000 !important;}
+
+#geoMapSelect button{margin:0px !important; }
+#geoMapSelect{position:fixed; right:10px; top:15px; background-color:#fff; }
+#geoLayer-legend1{width: 130px; position:fixed; right: 10px; top:70px; background-color:#fff; border:1px solid #000; opacity:0.9;}
+#geoLayer-legend1 table {margin:auto;}
+#geoLayer-legend1 td{text-align:center;}
+#geoLayer-legend1 img {width:100px !important;}

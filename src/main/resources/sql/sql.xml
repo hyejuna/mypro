@@ -10,7 +10,7 @@
 		<![CDATA[
 			select min(st_distance(r.geom,ST_SetSRID(ST_Point(#{x}, #{y}),3857))-(r.road_bt/2))
 			from dongjak_road r
-			where r.road_bt >=12
+			where r.road_bt >=20
 		]]>
 	</select>
 	
@@ -70,9 +70,13 @@
 	<select id = "selectRank" parameterType = "com.pro.dto.RankDto" resultType="double">
 		<![CDATA[
 			select s.value100
-			from avg_stdev a, stdev_tb s
-			where a.vid = #{vid}
-			and s.z = (round(cast((a.average-#{value})/a.stdev as numeric),2)*#{code});	
+			from stdev_tb s
+			where s.z = (select case when (round(cast((a.average-#{value})/a.stdev as numeric),2)*#{code}) > 4.09 then 4.09
+					  			   when (round(cast((a.average-#{value})/a.stdev as numeric),2)*#{code}) < -4.09 then -4.09
+								   else (round(cast((a.average-#{value})/a.stdev as numeric),2)*#{code}) 
+					   		  end as zvalue
+					   from avg_stdev a
+					   where a.vid = #{vid})
 		]]>
 	</select>
 </mapper> 
