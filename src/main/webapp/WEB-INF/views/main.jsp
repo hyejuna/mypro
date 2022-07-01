@@ -162,6 +162,17 @@
 						
 					</table>
 				</div>
+				<div id="geoLayer-legend2" class="geoLegend" style="visibility:hidden">
+					<table>
+						<tr>
+							<td>보안등 수<br>(단위 면적 당)</td>
+						</tr>
+						<tr>
+							<td><img src="./resources/img/light_legend.PNG"/></td>
+						</tr>
+						
+					</table>
+				</div>
 				<div id="legend" style="visibility:hidden">
 					<table>
 						<tr>
@@ -465,12 +476,13 @@
 		
 	}
 					
-	/* 레이어 버튼 클릭 */
+	/* 레이어 버튼 클릭  hclecp*/
 	$("#btn-home").on("click", function(){
 		console.log("home클릭")
 		map.getLayers().getArray().filter(layer => layer.get('name') ==='geolayer').forEach(layer => map.removeLayer(layer));
 		console.log(map.getLayers().getArray())
 		$("#geoLayer-legend1").attr("style","visibility:hidden")
+		$("#geoLayer-legend2").attr("style","visibility:hidden")
 	})
 		
 	$("#selBtn1").on("click", function(){
@@ -484,6 +496,7 @@
 		})
 		map.addLayer(geolayer);	
 		$("#geoLayer-legend1").attr("style","visibility:visible")
+		$("#geoLayer-legend2").attr("style","visibility:hidden")
 	})
 	
 	$("#selBtn2").on("click", function(){
@@ -491,11 +504,13 @@
 		removeLayer();
 		var geolayer = new ol.layer.Tile({
 			source : new ol.source.TileWMS({
-				url : 'http://localhost:8080/geoserver/cite/wms?service=WMS&version=1.1.0&request=GetMap&layers=cite:cctv_cnt&styles=&bbox=1.4126983E7,4505629.5,1.4135596E7,4511282.5&srs=EPSG:3857&format=image/png'
+				url : 'http://localhost:8080/geoserver/cite/wms?service=WMS&version=1.1.0&request=GetMap&layers=cite:cnt_light&styles=&bbox=1.4126983E7,4505629.5,1.4135694E7,4511048.5&srs=EPSG:3857&format=image/png'
 			}),
 			name : 'geolayer'
 		})
 		map.addLayer(geolayer);	
+		$("#geoLayer-legend2").attr("style","visibility:visible")
+		$("#geoLayer-legend1").attr("style","visibility:hidden")
 	})
 	
 	$("#selBtn3").on("click", function(){
@@ -503,11 +518,13 @@
 		removeLayer();
 		var geolayer = new ol.layer.Tile({
 			source : new ol.source.TileWMS({
-				url : 'http://localhost:8080/geoserver/cite/wms?service=WMS&version=1.1.0&request=GetMap&layers=cite:cctv_cnt&styles=&bbox=1.4126983E7,4505629.5,1.4135596E7,4511282.5&srs=EPSG:3857&format=image/png'
+				url : 'http://localhost:8080/geoserver/cite/wms?service=WMS&version=1.1.0&request=GetMap&layers=cite:dongjak_ent&styles=&bbox=1.4126983E7,4505629.5,1.4135596E7,4511282.5&srs=EPSG:3857&format=image/png'
 			}),
 			name : 'geolayer'
 		})
 		map.addLayer(geolayer);	
+		$("#geoLayer-legend1").attr("style","visibility:hidden")
+		$("#geoLayer-legend2").attr("style","visibility:hidden")
 	})
 	
 	$("#selBtn4").on("click", function(){
@@ -515,11 +532,13 @@
 		removeLayer();
 		var geolayer = new ol.layer.Tile({
 			source : new ol.source.TileWMS({
-				url : 'http://localhost:8080/geoserver/cite/wms?service=WMS&version=1.1.0&request=GetMap&layers=cite:cctv_cnt&styles=&bbox=1.4126983E7,4505629.5,1.4135596E7,4511282.5&srs=EPSG:3857&format=image/png'
+				url : 'http://localhost:8080/geoserver/cite/wms?service=WMS&version=1.1.0&request=GetMap&layers=cite:dongjak_conv&styles=&bbox=1.4126983E7,4505629.5,1.4135596E7,4511282.5&srs=EPSG:3857&format=image/png'
 			}),
 			name : 'geolayer'
 		})
-		map.addLayer(geolayer);	
+		map.addLayer(geolayer);
+		$("#geoLayer-legend1").attr("style","visibility:hidden")
+		$("#geoLayer-legend2").attr("style","visibility:hidden")
 	})
 	
 	$("#selBtn5").on("click", function(){
@@ -527,12 +546,13 @@
 		removeLayer();
 		var geolayer = new ol.layer.Tile({
 			source : new ol.source.TileWMS({
-				url : 'http://localhost:8080/geoserver/cite/wms?service=WMS&version=1.1.0&request=GetMap&layers=cite:cctv_cnt&styles=&bbox=1.4126983E7,4505629.5,1.4135596E7,4511282.5&srs=EPSG:3857&format=image/png'
+				url : 'http://localhost:8080/geoserver/cite/wms?service=WMS&version=1.1.0&request=GetMap&layers=cite:dongjak_police&styles=&bbox=1.4126983E7,4505629.5,1.4135596E7,4511282.5&srs=EPSG:3857&format=image/png'
 			}),
 			name : 'geolayer'
 		})
 		map.addLayer(geolayer);	
-		
+		$("#geoLayer-legend1").attr("style","visibility:hidden")
+		$("#geoLayer-legend2").attr("style","visibility:hidden")
 	})
 	
 	

@@ -62,3 +62,7 @@ li>span{font-weight:bold;}
 #geoLayer-legend1 table {margin:auto;}
 #geoLayer-legend1 td{text-align:center;}
 #geoLayer-legend1 img {width:100px !important;}
+#geoLayer-legend2{width: 130px; position:fixed; right: 10px; top:70px; background-color:#fff; border:1px solid #000; opacity:0.9;}
+#geoLayer-legend2 table {margin:auto;}
+#geoLayer-legend2 td{text-align:center;}
+#geoLayer-legend2 img {width:100px !important;}
